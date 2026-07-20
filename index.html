@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<style>
+  body{margin:0}
+  ::selection{background:oklch(0.62 0.15 45 / 0.25)}
+  a{text-decoration:none}
+  #work-scroll{scrollbar-width:none;-ms-overflow-style:none;}
+  #work-scroll::-webkit-scrollbar{display:none}
+
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="min-height:100vh;background:{{ bg }};color:{{ text }};font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;transition:background 0.35s ease,color 0.35s ease;">
+
+  <nav style="position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; row-gap: 10px; padding: 20px clamp(20px, 6vw, 56px); background: {{ navBg }}; backdrop-filter: blur(10px); border-bottom: 1px solid {{ border }}; flex-direction: row;">
+    <div style="display:flex;align-items:center;gap:clamp(14px, 4vw, 36px);flex-wrap:wrap;">
+      <a href="#work" style="font-size:14px;color:{{ textMuted }};font-weight:500;" style-hover="color:{{ text }}">Work</a>
+      <a href="#about" style="font-size:14px;color:{{ textMuted }};font-weight:500;" style-hover="color:{{ text }}">About</a>
+      <a href="#contact" style="font-size:14px;color:{{ textMuted }};font-weight:500;" style-hover="color:{{ text }}">Contact</a>
+      <button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="width:38px;height:38px;border-radius:999px;border:1px solid {{ border }};background:{{ card }};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ text }};font-size:15px;line-height:1;" style-hover="border-color:{{ accent }}">{{ themeIcon }}</button>
+    </div>
+  </nav>
+
+  <header style="max-width:920px;margin:0 auto;padding:clamp(56px, 12vw, 120px) clamp(20px, 6vw, 56px) clamp(48px, 10vw, 96px);">
+    <div id="hero-row" style="display:flex;flex-direction:{{ heroFlexDirection }};align-items:flex-start;gap:24px;margin-bottom:24px;">
+      <div style="order:{{ heroImageOrder }};width:clamp(100px, 15vw, 240px);height:clamp(100px, 15vw, 240px);flex-shrink:0;">
+        <image-slot id="hero-photo" shape="rounded" radius="16" placeholder="Portrait photo" src="https://drive.google.com/thumbnail?sz=w1000&id=13DI_ahq-jDUrbGVtSKBrH7426o-WJctN" style="width:clamp(100px, 15vw, 240px);height:clamp(100px, 15vw, 240px)"></image-slot>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <h1 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(32px, 7vw, 56px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 24px;color:{{ text }};text-wrap:balance;">Hi, I'm Daniel Veramei - Senior iOS Engineer</h1>
+        <p style="font-size:18px;line-height:1.6;color:{{ textMuted }};max-width:min(520px, 100%);margin:0 0 36px;">I design and ship iOS/macOS products end-to-end - architecture, CI/CD, subscriptions, and analytics - for FinTech, AI, and creator-economy startups. Currently at Othis, based in Warsaw.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="#work" style="padding:14px 26px;border-radius:8px;background:{{ text }};color:{{ bg }};font-size:14px;font-weight:600;" style-hover="opacity:0.85">View work</a>
+          <a href="#contact" style="padding:14px 26px;border-radius:8px;border:1px solid {{ border }};color:{{ text }};font-size:14px;font-weight:600;" style-hover="border-color:{{ accent }};color:{{ accent }}">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="max-width:920px;margin:0 auto;padding:8px clamp(20px, 6vw, 56px) 40px;border-top:1px solid {{ border }};">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 10px;padding-top:36px;align-items:center;">
+      <!-- <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:{{ textMuted }};margin-right:8px;">Tech</span> -->
+      <sc-for list="{{ tools }}" as="tool" hint-placeholder-count="6">
+        <span style="font-size:13px;color:{{ text }};padding:4px 11px;border-radius:999px;border:1px solid {{ border }};">{{ tool }}</span>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="work" style="max-width:920px;margin:0 auto;padding:clamp(56px, 10vw, 96px) clamp(20px, 6vw, 56px);">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:48px;">
+      <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:32px;letter-spacing:-0.01em;margin:0;color:{{ text }};">Selected Work</h2>
+      <span style="font-size:14px;color:{{ textMuted }};">5 projects</span>
+    </div>
+    <div style="position:relative;">
+      <button onClick="{{ scrollWorkLeft }}" aria-label="Scroll projects left" style="position:absolute;left:clamp(-22px, -2vw, 4px);top:clamp(84px, 13vw, 105px);transform:translateY(-50%);width:clamp(36px, 8vw, 44px);height:clamp(36px, 8vw, 44px);border-radius:999px;border:1px solid {{ border }};background:{{ card }};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ text }};font-size:clamp(15px, 3.5vw, 19px);line-height:1;z-index:5;box-shadow:0 4px 16px oklch(0 0 0 / 0.08);" style-hover="border-color:{{ accent }};color:{{ accent }}">‹</button>
+      <div id="work-scroll" style="display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 12px;">
+        <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="3">
+          <div onClick="{{ proj.onOpen }}" style="display:flex;flex-direction:column;gap:16px;flex:0 0 clamp(220px, 70vw, 280px);scroll-snap-align:start;cursor:pointer;" style-hover="opacity:0.88">
+            <div style="width:clamp(220px, 70vw, 280px);height:clamp(165px, 52vw, 210px);flex-shrink:0;">
+              <image-slot id="{{ proj.slotId }}" shape="rounded" radius="14" placeholder="{{ proj.placeholder }}" src="{{ proj.src }}" style="width:clamp(220px, 70vw, 280px);height:clamp(165px, 52vw, 210px)"></image-slot>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <h3 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:18px;margin:0;color:{{ text }};">{{ proj.title }}</h3>
+                <span style="font-size:15px;color:{{ textMuted }};">↗</span>
+              </div>
+              <p style="font-size:14px;line-height:1.5;color:{{ textMuted }};margin:0;">{{ proj.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ scrollWorkRight }}" aria-label="Scroll projects right" style="position:absolute;right:clamp(-22px, -2vw, 4px);top:clamp(84px, 13vw, 105px);transform:translateY(-50%);width:clamp(36px, 8vw, 44px);height:clamp(36px, 8vw, 44px);border-radius:999px;border:1px solid {{ border }};background:{{ card }};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ text }};font-size:clamp(15px, 3.5vw, 19px);line-height:1;z-index:5;box-shadow:0 4px 16px oklch(0 0 0 / 0.08);" style-hover="border-color:{{ accent }};color:{{ accent }}">›</button>
+    </div>
+  </section>
+
+  <sc-if value="{{ isModalOpen }}">
+    <div onClick="{{ closeProject }}" style="position:fixed;inset:0;z-index:50;background:oklch(0.1 0.01 95 / 0.6);display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onClick="{{ stopModalClick }}" style="max-width:720px;width:100%;max-height:88vh;overflow-y:auto;background:{{ bg }};border:1px solid {{ border }};border-radius:16px;padding:clamp(20px, 4vw, 36px);position:relative;box-shadow:0 24px 64px oklch(0 0 0 / 0.25);">
+        <button onClick="{{ closeProject }}" aria-label="Close preview" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:999px;border:1px solid {{ border }};background:{{ card }};cursor:pointer;color:{{ text }};font-size:16px;line-height:1;z-index:2;" style-hover="border-color:{{ accent }};color:{{ accent }}">✕</button>
+
+        <div style="position:relative;width:100%;max-height:60vh;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:{{ card }};margin-bottom:24px;">
+          <sc-if value="{{ isVideoWithSrc }}">
+            <video src="{{ activeMediaSrc }}" controls playsinline style="width:100%;height:100%;object-fit:contain;display:block;"></video>
+          </sc-if>
+          <sc-if value="{{ isVideoNoSrc }}">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box;color:{{ textMuted }};font-size:14px;border:1px dashed {{ border }};">{{ activeMediaPlaceholder }}</div>
+          </sc-if>
+          <sc-if value="{{ isImageMedia }}">
+            <image-slot id="{{ activeMediaId }}" shape="rect" fit="contain" placeholder="{{ activeMediaPlaceholder }}" src="{{ activeMediaSrc }}" style="width:100%;height:100%;"></image-slot>
+          </sc-if>
+          <sc-if value="{{ hasMultipleMedia }}">
+            <button onClick="{{ prevMedia }}" aria-label="Previous asset" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:999px;border:none;background:oklch(1 0 0 / 0.85);color:oklch(0.15 0 0);cursor:pointer;font-size:17px;line-height:1;">‹</button>
+            <button onClick="{{ nextMedia }}" aria-label="Next asset" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:999px;border:none;background:oklch(1 0 0 / 0.85);color:oklch(0.15 0 0);cursor:pointer;font-size:17px;line-height:1;">›</button>
+            <span style="position:absolute;bottom:10px;right:14px;font-size:12px;padding:3px 10px;border-radius:999px;background:oklch(0.1 0 0 / 0.6);color:oklch(0.98 0 0);">{{ activeMediaDisplayIndex }} / {{ activeMediaCount }}</span>
+          </sc-if>
+        </div>
+
+        <h3 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:24px;margin:0 0 12px;color:{{ text }};">{{ activeTitle }}</h3>
+        <p style="font-size:15px;line-height:1.6;color:{{ textMuted }};margin:0;">{{ activeDesc }}</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+          <sc-for list="{{ activeLinks }}" as="lnk" hint-placeholder-count="2">
+            <a href="{{ lnk.href }}" target="_blank" rel="noopener" style="padding:10px 20px;border-radius:8px;border:1px solid {{ border }};color:{{ text }};font-size:14px;font-weight:600;" style-hover="border-color:{{ accent }};color:{{ accent }}">{{ lnk.label }} ↗</a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <section id="about" style="max-width:920px;margin:0 auto;padding:0 clamp(20px, 6vw, 56px) 96px;">
+    <div style="border-top:1px solid {{ border }};padding-top:64px;display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:clamp(24px, 6vw, 64px);">
+      <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:32px;letter-spacing:-0.01em;margin:0;color:{{ text }};">About</h2>
+      <div>
+        <p style="font-size:16px;line-height:1.7;color:{{ textMuted }};margin:0 0 20px;">I'm a Senior iOS Engineer with 7+ years building and scaling mobile products across FinTech, AI, media, creator-economy, utilities, IoT, and healthcare. I've shipped apps from scratch as a sole engineer, owned mobile architecture, and set up CI/CD, subscriptions, analytics, and A/B testing - usually working directly with founders and product teams to turn an idea into a stable, App Store-ready product.</p>
+        <p style="font-size:16px;line-height:1.7;color:{{ textMuted }};margin:0;">Currently building a FinTech app from the ground up at Othis. Previously a founding engineer at SRG+, where I helped scale a creator-economy platform to ~10,000 paying users across iOS, iPadOS, macOS, and tvOS.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="max-width:920px;margin:0 auto;padding:0 clamp(20px, 6vw, 56px) 56px;">
+    <div style="border-top:1px solid {{ border }};padding-top:64px;text-align:center;">
+      <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(26px, 6vw, 40px);letter-spacing:-0.01em;margin:0 0 24px;color:{{ text }};">Let's connect</h2>
+      <a href="mailto:daniil.veramei@gmail.com" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:clamp(18px, 4.5vw, 28px);font-weight:500;color:{{ accent }};" style-hover="opacity:0.8">daniil.veramei@gmail.com</a>
+      <div style="display:flex;justify-content:center;gap:28px;margin-top:40px;">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="2">
+          <a href="{{ s.href }}" style="font-size: 14px; color: {{ textMuted }}; font-weight: 500" style-hover="color:{{ text }}">{{ s.label }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer style="max-width:920px;margin:0 auto;padding:clamp(20px, 4vw, 32px) clamp(20px, 6vw, 56px);border-top:1px solid {{ border }};font-size:13px;color:{{ textMuted }};text-align:center;">
+    <span>© 2026 Daniel Veramei</span>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;light&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;oklch(0.62 0.15 45)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;oklch(0.62 0.15 45)&quot;,&quot;oklch(0.6 0.14 250)&quot;,&quot;oklch(0.6 0.13 150)&quot;,&quot;oklch(0.62 0.16 320)&quot;],&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  state = { theme: null, openProjectIndex: null, mediaIndex: 0, heroStacked: false };
+
+  projectsData = [
+    { title: 'Othis', desc: 'FinTech app built from scratch as sole iOS engineer - architecture, CI/CD, analytics, iPadOS & macOS support.',
+      media: [
+        { id: 'proj-1-0', type: 'image', placeholder: 'Othis screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1VVxtEdpIebZ19nnEbRRGBaZMmTU4kZJc' },
+        { id: 'proj-1-1', type: 'image', placeholder: 'Othis screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1umej2V8cbBW09ex5jShU_t8rb-cP7kp3' },
+        { id: 'proj-1-2', type: 'image', placeholder: 'Othis screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1JcSCGMagBzBUZa44W4m7kydep1aZkyiA' },
+        { id: 'proj-1-3', type: 'image', placeholder: 'Othis screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=114Iqaot2FzlaKfS3XtogHEdIZdKAuJIK' },
+      ],
+      links: [ { label: 'App Store', href: 'https://apps.apple.com/pl/app/othis/id1658785766' } ] },
+    { title: 'SRG+', desc: 'Creator-economy platform built as founding engineer - modular architecture, App Clips with NFC/QR, ~10,000 paying users.',
+      media: [
+        { id: 'proj-2-0', type: 'image', placeholder: 'SRG+ screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1FgK3Ur9c9tMcMyX-Ym1WfLYHITV54CwE' },
+      ],
+      links: [ { label: 'App Store', href: 'https://apps.apple.com/us/app/srg/id6499464148' }, { label: 'Website', href: 'https://srgplus.app' } ] },
+    { title: 'VITY', desc: 'AI-powered photo & video app - owned architecture, subscriptions, performance, analytics and A/B testing.',
+      media: [
+        { id: 'proj-3-0', type: 'image', placeholder: 'VITY screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1FBNdpGnPZGSDhYP783gWqgbg-hSPSUVy' },
+      ],
+      links: [] },
+    { title: 'VPN & Utilities', desc: 'VPN and utility apps built for reliability at scale - networking, background services, and analytics.',
+      media: [
+        { id: 'proj-4-0', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1wgeaF0ygsAwc4l9K85JlbZuE0ehlJe8j' },
+        { id: 'proj-4-1', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1DM3M1psIDZEvdfw_yJEZWox7k6-XbeuX' },
+        { id: 'proj-4-2', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1Rxln9FkFD-Ju3BUjMA416KA5Enlw_Adn' },
+        { id: 'proj-4-3', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1mVRj1ao1DBwFxX28iHrzwAn9WE1Jl_7H' },
+        { id: 'proj-4-4', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1oQrPQ0AG1culifC-uJ2lOs4xrfVQNmC5' },
+        { id: 'proj-4-5', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1T0Jf_NnbJXxv5gD9q_XtS5JMZEtuM7n-' },
+        { id: 'proj-4-6', type: 'image', placeholder: 'VPN & Utilities screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1z_AWIPso5IDjLNO3njuvWMZ0jp_9jdyn' },
+      ],
+      links: [ { label: 'KeyTrust - App Store', href: 'https://apps.apple.com/us/app/keytrust/id6475085130' }, { label: 'GetPrivacy - App Store', href: 'https://apps.apple.com/app/getprivacy-vpn-protection/id6449298381' } ] },
+    { title: 'Voicely', desc: 'Real-time messaging & audio-calling app - built authentication, chat, and calling from the ground up.',
+      media: [
+        { id: 'proj-5-0', type: 'image', placeholder: 'Voicely screenshot', src: 'https://drive.google.com/thumbnail?sz=w1000&id=1Yhs6EHVZTstXoZoVMQLAyFundtcqgA4s' },
+      ],
+      links: [ { label: 'App Store', href: 'https://apps.apple.com/app/voicely-ai-emotinal-support/id6471817560' }, { label: 'TechCrunch', href: 'https://techcrunch.com/sponsor/voicely/why-voicely-believes-in-humane-authentic-social-media/' } ] },
+  ];
+
+  componentDidMount() {
+    let saved = null;
+    try { saved = localStorage.getItem('portfolio-theme'); } catch (e) {}
+    let systemPref = null;
+    try {
+      if (window.matchMedia) {
+        systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+    } catch (e) {}
+    const initial = saved || systemPref || this.props.defaultTheme || 'light';
+    this.setState({ theme: initial });
+
+    try {
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        this._themeMQ = mq;
+        this._onThemeMQChange = (e) => {
+          let stillSaved = null;
+          try { stillSaved = localStorage.getItem('portfolio-theme'); } catch (err) {}
+          if (!stillSaved) this.setState({ theme: e.matches ? 'dark' : 'light' });
+        };
+        mq.addEventListener ? mq.addEventListener('change', this._onThemeMQChange) : mq.addListener(this._onThemeMQChange);
+      }
+    } catch (e) {}
+
+    const heroRow = document.getElementById('hero-row');
+    if (heroRow && typeof ResizeObserver !== 'undefined') {
+      this._heroRO = new ResizeObserver((entries) => {
+        const width = entries[0].contentRect.width;
+        const stacked = width < 460;
+        if (stacked !== this.state.heroStacked) this.setState({ heroStacked: stacked });
+      });
+      this._heroRO.observe(heroRow);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._heroRO) this._heroRO.disconnect();
+    if (this._themeMQ && this._onThemeMQChange) {
+      this._themeMQ.removeEventListener ? this._themeMQ.removeEventListener('change', this._onThemeMQChange) : this._themeMQ.removeListener(this._onThemeMQChange);
+    }
+  }
+
+  toggleTheme = () => {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.setState({ theme: next });
+    try { localStorage.setItem('portfolio-theme', next); } catch (e) {}
+  };
+
+  scrollWorkLeft = () => {
+    const el = document.getElementById('work-scroll');
+    if (el) el.scrollBy({ left: -308, behavior: 'smooth' });
+  };
+
+  scrollWorkRight = () => {
+    const el = document.getElementById('work-scroll');
+    if (el) el.scrollBy({ left: 308, behavior: 'smooth' });
+  };
+
+  openProject = (i) => this.setState({ openProjectIndex: i, mediaIndex: 0 });
+
+  closeProject = () => this.setState({ openProjectIndex: null });
+
+  stopModalClick = (e) => { if (e && e.stopPropagation) e.stopPropagation(); };
+
+  nextMedia = () => {
+    const p = this.state.openProjectIndex != null ? this.projectsData[this.state.openProjectIndex] : null;
+    if (!p || !p.media.length) return;
+    this.setState({ mediaIndex: (this.state.mediaIndex + 1) % p.media.length });
+  };
+
+  prevMedia = () => {
+    const p = this.state.openProjectIndex != null ? this.projectsData[this.state.openProjectIndex] : null;
+    if (!p || !p.media.length) return;
+    this.setState({ mediaIndex: (this.state.mediaIndex - 1 + p.media.length) % p.media.length });
+  };
+
+  renderVals() {
+    const theme = this.state.theme || this.props.defaultTheme || 'light';
+    const dark = theme === 'dark';
+    const accent = this.props.accentColor || 'oklch(0.62 0.15 45)';
+    const accentDark = 'oklch(0.72 0.15 45)';
+
+    const colors = dark
+      ? {
+          bg: 'oklch(0.17 0.01 95)',
+          navBg: 'oklch(0.17 0.01 95 / 0.85)',
+          card: 'oklch(0.22 0.01 95)',
+          text: 'oklch(0.95 0.005 95)',
+          textMuted: 'oklch(0.68 0.01 95)',
+          border: 'oklch(0.30 0.01 95)',
+          accent: accentDark,
+        }
+      : {
+          bg: 'oklch(0.98 0.005 95)',
+          navBg: 'oklch(0.98 0.005 95 / 0.85)',
+          card: 'oklch(0.995 0.003 95)',
+          text: 'oklch(0.18 0.01 95)',
+          textMuted: 'oklch(0.46 0.01 95)',
+          border: 'oklch(0.88 0.005 95)',
+          accent: accent,
+        };
+
+    const openIdx = this.state.openProjectIndex;
+    const activeProject = openIdx != null ? this.projectsData[openIdx] : null;
+    const mediaIdx = this.state.mediaIndex || 0;
+    const activeMedia = activeProject ? activeProject.media[mediaIdx] : null;
+
+    return {
+      ...colors,
+      themeIcon: dark ? '☀' : '☾',
+      toggleTheme: this.toggleTheme,
+      heroFlexDirection: this.state.heroStacked ? 'column' : 'row',
+      heroImageOrder: this.state.heroStacked ? -1 : 1,
+      scrollWorkLeft: this.scrollWorkLeft,
+      scrollWorkRight: this.scrollWorkRight,
+      tools: ['Swift', 'Objective-C', 'SwiftUI', 'UIKit', 'AppKit', 'Combine', 'Swift Concurrency', 'Core Data', 'SwiftData', 'StoreKit', 'CoreML', 'Vision', 'CI/CD', 'Fastlane', 'XCTest', 'Swift Testing', 'WidgetKit', 'Firebase'],
+      projects: this.projectsData.map((p, i) => ({
+        slotId: p.media[0].id,
+        placeholder: p.media[0].placeholder,
+        src: p.media[0].src,
+        title: p.title,
+        desc: p.desc,
+        onOpen: () => this.openProject(i),
+      })),
+      socials: [
+        { label: 'GitHub', href: 'https://github.com/daniv3r' },
+        { label: 'LinkedIn', href: 'https://linkedin.com/in/daniel-veremei' },
+      ],
+      isModalOpen: openIdx !== null,
+      closeProject: this.closeProject,
+      stopModalClick: this.stopModalClick,
+      nextMedia: this.nextMedia,
+      prevMedia: this.prevMedia,
+      activeTitle: activeProject ? activeProject.title : '',
+      activeDesc: activeProject ? activeProject.desc : '',
+      activeLinks: activeProject ? activeProject.links : [],
+      activeMediaSrc: activeMedia ? activeMedia.src : '',
+      activeMediaPlaceholder: activeMedia ? activeMedia.placeholder : '',
+      activeMediaId: activeMedia ? activeMedia.id + '-modal' : '',
+      activeMediaCount: activeProject ? activeProject.media.length : 0,
+      hasMultipleMedia: activeProject ? activeProject.media.length > 1 : false,
+      isImageMedia: !!activeMedia && activeMedia.type === 'image',
+      isVideoWithSrc: !!activeMedia && activeMedia.type === 'video' && !!activeMedia.src,
+      isVideoNoSrc: !!activeMedia && activeMedia.type === 'video' && !activeMedia.src,
+      activeMediaDisplayIndex: mediaIdx + 1,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
